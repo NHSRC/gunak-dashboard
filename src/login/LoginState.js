@@ -11,4 +11,13 @@ export default class LoginState {
         loginState.errorMessage = other.errorMessage;
         return loginState;
     }
+
+    static loginFailed(loginState, httpError) {
+        loginState.loginFailed = true;
+        if (httpError.status === 401) {
+            loginState.errorMessage = "Invalid login credentials";
+        } else {
+            loginState.errorMessage = httpError.message;
+        }
+    }
 }

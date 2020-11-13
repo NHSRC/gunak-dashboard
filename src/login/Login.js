@@ -20,8 +20,7 @@ export function Login() {
             LoginService.login(formDataObj.email, formDataObj.password, () => {
                 history.push('/your/path')
             }, (error) => {
-                loginState.loginFailed = true;
-                loginState.errorMessage = error.message;
+                LoginState.loginFailed(loginState, error);
                 update(LoginState.clone(loginState));
             });
         }}>
@@ -51,9 +50,9 @@ export function Login() {
                         <Button type="submit" variant="primary" size="lg" block>Sign in</Button>
                     </Form.Group>
                 </Form.Row>
-                {loginState.loginFailed && <Row className="justify-content-md-center">
-                    <p className="text-right">{loginState.errorMessage}</p>
-                </Row>}
+                {loginState.loginFailed && <Row className="justify-content-md-center"><div className="alert alert-danger" role="alert">
+                    <h5>{loginState.errorMessage}</h5>
+                </div></Row>}
                 <Row className="justify-content-md-center">
                     <p className="forgot-password text-right">
                         Forgot <a href="#">password?</a>
